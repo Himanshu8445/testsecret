@@ -79,11 +79,7 @@ jobs:
       - name: Log into Azure test
         uses: azure/login@v1
         with:
-          client-secret: ${{ steps.myGetSecretAction.outputs.devops-demo-app-secret }}
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          enable-AzPSSession: true
+          creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ steps.myGetSecretAction.outputs.devops-demo-app-secret }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'          enable-AzPSSession: true
       - name: "Get working Az Context with PowerShell action"
         uses: azure/powershell@v1
         with:
