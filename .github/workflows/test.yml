@@ -29,9 +29,9 @@ on:
       AZURE_TENANT_ID:
         required: true
         description: "Specifies the tenant id of the deployment."
-      AZURE_CREDENTIALS:
-        required: true
-        description: "Specifies the azure credentials for deployment."
+      #AZURE_CREDENTIALS:
+        #required: true
+        #description: "Specifies the azure credentials for deployment."
 
 permissions:
   id-token: write
@@ -50,6 +50,14 @@ jobs:
       - name: Check Out Repository
         id: checkout_repository
         uses: actions/checkout@v3
+
+            # # Install Required Modules
+      - name: Install Required Modules
+        id: install_modules
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module Az -ErrorAction Stop
+        shell: pwsh
 
       - name: Log into Azure (via OIDC)
         uses: azure/login@v1
