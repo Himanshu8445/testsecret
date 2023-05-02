@@ -67,7 +67,7 @@ jobs:
       - name: Get key vault secrets
         uses: Azure/get-keyvault-secrets@v1
         with:
-          keyvault: "https://yamlkeyvault.vault.azure.net"
+          keyvault: "yamlkeyvault"
           secrets: 'devops-demo-app-secret'  # comma separated list of secret keys that need to be fetched from the Key Vault 
         id: myGetSecretAction
       - name: "Get working Az Context with PowerShell action"
