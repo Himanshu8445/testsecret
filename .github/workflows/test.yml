@@ -33,9 +33,9 @@ on:
         required: true
         description: "Specifies the azure credentials for deployment."
 
-permissions:
-  id-token: write
-  contents: read
+# permissions:
+#   id-token: write
+#   contents: read
 
 jobs:
   deployment:
@@ -59,13 +59,10 @@ jobs:
           Install-Module Az -ErrorAction Stop
         shell: pwsh
 
-      - name: Log into Azure (via OIDC)
+      - name: Log into Azure
         uses: azure/login@v1
         with:
-          client_secret: ${{ secrets.AZURE_CLIENT_SECRET }}
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          creds: '{"clientId":"${{ secrets.client_id }}","clientSecret":"${{ secrets.client_secret }}","subscriptionId":"${{ secrets.azure_subscription_id }}","tenantId":"${{ secrets.tenant_id }}"}'
           enable-AzPSSession: true
       - name: Get key vault secrets
         uses: Azure/get-keyvault-secrets@v1
